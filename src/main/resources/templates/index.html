@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>系统首页</title>
+    <div th:replace="_main/commons::common_head"/>
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item layui-this" sec:authorize="hasRole('settings')"><a href="">选中</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">常规</a>
+    </li>
+    <li class="layui-nav-item"><a href="javascript:;">导航</a></li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">子级</a>
+        <dl class="layui-nav-child">
+            <dd><a href="">菜单1</a></dd>
+            <dd><a href="">菜单2</a></dd>
+            <dd><a href="">菜单3</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item">
+        <a href="javascript:;">选项</a>
+        <dl class="layui-nav-child">
+            <dd><a href="">选项1</a></dd>
+            <dd class="layui-this"><a href="">选项2</a></dd>
+            <dd><a href="">选项3</a></dd>
+        </dl>
+    </li>
+    <li class="layui-nav-item"><a target="_blank" th:href="@{/}">演示</a></li>
+    <li class="layui-nav-item"><a th:href="@{/api}">接口</a></li>
+    <li class="layui-nav-item" sec:authorize="hasAuthority('/sys/settings')"><a href="javascript:;">设置</a></li>
+    <li class="layui-nav-item"><a href="javascript:;" onclick="doLogout()">注销</a></li>
+</ul>
+</body>
+<div th:replace="_main/commons::common_js"/>
+<script th:inline="javascript" type="text/javascript">
+    function doLogout() {
+        layer.confirm('确认注销?', function (index) {
+            $.post(ctx + "login/logout", function (data) {
+                if ('success' === data) {
+                    layer.alert('注销成功', function(index){
+                        layer.close(index);
+                        location.href = ctx;
+                    });
+                } else {
+                    layer.open({
+                        title: '信息',
+                        content: '注销失败,请重试.'
+                    });
+                }
+            });
+        });
+    }
+</script>
+</html>

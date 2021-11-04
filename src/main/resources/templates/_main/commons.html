@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<!-- 公共的head -->
+<th:block th:fragment="common_head">
+    <meta charset="UTF-8">
+    <link href="//www.layuicdn.com/layui-v2.6.8/css/layui.css" media="all" rel="stylesheet">
+    <script src="//cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//www.layuicdn.com/layui-v2.6.8/layui.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        // 上下文定义
+        var ctx = /*[[@{/}]]*/;
+        var layer = layui.layer,
+            form = layui.form,
+            element = layui.element,
+            table = layui.table;
+    </script>
+</th:block>
+
+<!-- 公共的js -->
+<th:block th:fragment="common_js">
+
+</th:block>
+</html>

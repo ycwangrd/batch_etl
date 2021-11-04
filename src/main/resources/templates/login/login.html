@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录页面</title>
+    <div th:replace="_main/commons::common_head"/>
+</head>
+<body>
+<form action="" class="layui-form" style="width: 35%">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input autocomplete="off" class="layui-input" lay-verify="required" name="username" placeholder="用户名" required type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-inline">
+            <input autocomplete="off" class="layui-input" lay-verify="required" name="password" placeholder="请输入密码" required type="password">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-filter="formLogin" lay-submit>登录</button>
+            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+<div th:replace="_main/commons::common_js"/>
+<script th:inline="javascript" type="text/javascript">
+    //监听提交
+    form.on('submit(formLogin)', function (data) {
+        $.post(ctx + 'login/doLogin', data.field, function (data) {
+            console.log(data)
+            if ('success' === data) {
+                location.href = ctx + "index";
+            } else {
+                layer.open({
+                    title: '登录失败',
+                    content: '用户名或者密码错误,请重试.'
+                });
+            }
+        });
+        return false;
+    });
+</script>
+</html>
